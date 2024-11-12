@@ -9,5 +9,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Accesorios_para_Moto_Meyer';
+  title = 'Accesorios para Moto Meyer';
 }
