@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <header class="header">
+        <h1>{{ title }}</h1>
+        <button class="login-button" routerLink="/login">🚪</button>
+    </header>
+
+    <div class="product-container">
+        <div class="card" *ngFor="let item of productos">
+            <img (click)="openModal(item)" [src]="item.Imagen" alt="Imagen del producto">
+            <h2>{{ item.Nombre }}</h2>
+            <p>{{ item.Descripcion }}</p>
+            <p><strong>Precio:</strong> ${{ item.Precio_publico }}</p>
+            <!-- Botón para eliminar el producto -->
+            <button (click)="eliminarProducto(item.Nombre)">Eliminar</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" *ngIf="showModal">
+        <div class="modal-content">
+            <span class="close" (click)="closeModal()">&times;</span>
+            <img [src]="selectedProduct?.Imagen" alt="Imagen del producto">
+            <h2>{{ selectedProduct?.Nombre }}</h2>
+            <p>{{ selectedProduct?.Descripcion }}</p>
+            <p><strong>Precio:</strong> ${{ selectedProduct?.Precio_publico }}</p>
+        </div>
+    </div>
+</body>
+</html>

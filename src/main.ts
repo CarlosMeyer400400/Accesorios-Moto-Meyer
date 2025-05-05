@@ -3,11 +3,11 @@ import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { AppRoutingModule } from './app/app.routes';  // Importa AppRoutingModule desde app.routes.ts
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(HttpClientModule), // Agregar HttpClientModule
-    provideRouter([]) // Si tienes rutas, agrégalas aquí
+    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(AppRoutingModule),  // Agregar AppRoutingModule aquí
   ]
 });
