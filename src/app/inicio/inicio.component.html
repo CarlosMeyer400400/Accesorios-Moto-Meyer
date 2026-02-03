@@ -3,10 +3,10 @@
   <h1>{{ title }}</h1>
 </header>
 
-<br><br><br><br><br><br><br>
+<br><br><br><br><br>
 
 <h1 class="zona-title">
-  Entregas en Zona Centro, Mercado o Plazuela Juárez solo en Huejutla
+  📍 Entregas en Zona Centro, Mercado o Plazuela Juárez solo en Huejutla
 </h1>
 
 <div class="product-container">
@@ -19,8 +19,12 @@
  </div>
  
  <a class="btn-contact" 
-[href]="'https://wa.me/7713535455?text=' + encodeURIComponent('Hola, estoy interesado en el producto: ' + item.Nombre + ' - ' + item.Descripcion + ' - Precio: ' + item.Precio_publico)" 
-target="_blank">Comprar por WhatsApp</a>
+[href]="'https://wa.me/7713535455?text=' + '%0A' + 
+   'Hola, estoy interesado en el producto:' + '%0A' + 
+   item.Nombre + '%0A' + 
+   'Precio: $' + item.Precio_publico"
+
+ target="_blank">Comprar por WhatsApp</a>
  </div>
 </div>
 <!-- Modal -->
@@ -41,8 +45,7 @@ target="_blank">Comprar por WhatsApp</a>
       [href]="'https://wa.me/7713535455?text=' + encodeURIComponent(
         'Hola, estoy interesado en el producto: ' +
         selectedProduct.Nombre + ' - ' +
-        selectedProduct.Descripcion + ' - Precio: ' +
-        selectedProduct.Precio_publico
+        selectedProduct.Precio_publico + ' - Precio: ' 
       )"
       target="_blank">
       Comprar por WhatsApp

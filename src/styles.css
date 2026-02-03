@@ -6,7 +6,7 @@ html, body {
   overflow-x: hidden; /* Esto oculta lo que se salga por los lados */
   position: relative;
     background-color: black;
-
+touch-action: pan-y; /* Solo permite scroll vertical */
 }
 
 /* Muy importante para Angular */
