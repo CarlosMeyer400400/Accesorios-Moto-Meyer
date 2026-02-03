@@ -1,0 +1,211 @@
+/* ======= PALETA URBAN ROCKET =======
+Negro carbón: #0B0D0F
+Gris acero:   #2B2F33
+Crema vintage: #F2E5C4
+Rojo Rocket:  #D83C3A
+Dorado:       #C49A37
+==================================== */
+
+/* ======= BLOQUEAR SCROLL HORIZONTAL ======= */
+html, body {
+  width: 100%;
+  overflow-x: hidden !important;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Fix especial para iPhone (notch & scroll fantasmas) */
+@supports (-webkit-touch-callout: none) {
+  body {
+    width: 100vw;
+    overflow-x: hidden !important;
+  }
+}
+
+/* ---------- BODY ---------- */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0B0D0F;
+  padding-top: 110px;
+  color: #F2E5C4;
+}
+
+/* ---------- HEADER ---------- */
+.header {
+  background-color: #0B0D0F;
+  color: #F2E5C4;
+width: 100% !important; /* Cambia vw por % */
+  left: 0;
+  right: 0;
+    overflow: hidden !important;
+  padding: 15px 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 3px solid #C49A37;
+}
+
+.header img {
+  height: 95px;
+  margin-right: 12px;
+}
+
+.header h1 {
+  font-size: 38px;
+  margin: 0;
+  color: #F2E5C4;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* ----- Título entregas ----- */
+.zona-title {
+  background-color: #0B0D0F;
+  text-align: center;
+  color: #F2E5C4;
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+/* ---------- GRID TARJETAS 2-3-4 COLUMNAS ---------- */
+.product-container {
+  background-color: #0B0D0F;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas en celular */
+  gap: 18px;
+  padding: 20px 10px;
+ max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---------- TARJETAS ---------- */
+/* ---------- TARJETAS ---------- */
+.card {
+  background-color: #2B2F33;
+  border-radius: 10px;
+  border: 2px solid #C49A37;
+  width: 100%;
+  text-align: center;
+  padding: 15px; /* Bajé un poco el padding para ganar espacio */
+  color: #F2E5C4;
+  display: flex;
+  flex-direction: column;
+  /* Quitamos el height fijo de 450px */
+  min-height: 100%; 
+}
+
+/* Para que el botón siempre esté hasta abajo */
+.card .btn-contact {
+  margin-top: auto; 
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+}
+
+.card img {
+  width: 100%;
+  height: 180px; /* Un poco más pequeña para móviles */
+  object-fit: cover; /* Esto hará que todas se vean uniformes */
+  border-radius: 8px;
+  border: 2px solid #D83C3A;
+}
+
+.card h2 {
+  font-size: 20px;
+ margin: 10px 0 5px 0;
+}
+
+.card p {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+/* ---------- BOTÓN WHATSAPP ---------- */
+.btn-contact {
+  background-color: #25D366;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 17px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 12px;
+  border: 2px solid #D83C3A;
+  min-width: 80%;
+}
+
+.btn-contact:hover {
+  background-color: #20b358;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (min-width: 768px) {
+  .product-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas tablet */
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-container {
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas PC */
+  }
+}
+
+/* ---------- MODAL ---------- */
+.modal {
+  position: fixed;
+  z-index: 1001;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #2B2F33;
+  color: #F2E5C4;
+  max-width: 85%;
+  padding: 25px;
+  border-radius: 10px;
+  position: relative;
+  border: 2px solid #C49A37;
+}
+
+.modal img {
+  width: 100%;
+  max-width: 420px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 2px solid #D83C3A;
+}
+
+/* Botón cerrar */
+.close {
+  position: absolute;
+  top: 10px; 
+  right: 10px;
+  font-size: 30px;
+  color: #fff;
+  background: rgba(216, 60, 58, 0.8);
+  padding: 5px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.close:hover {
+  background: #D83C3A;
+}
