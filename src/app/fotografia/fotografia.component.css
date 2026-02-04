@@ -1,0 +1,140 @@
+:host {
+  display: block;
+  padding-top: 180px; /* Ajustado para el nuevo header */
+  background: radial-gradient(circle at top right, #1a1c1e, #0B0D0F);
+  min-height: 100vh;
+}
+
+.service-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px 50px;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.badge {
+  background: rgba(196, 154, 55, 0.15);
+  color: #C49A37;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: 1px solid rgba(196, 154, 55, 0.3);
+}
+
+.main-title {
+  color: #F2E5C4;
+  font-size: clamp(24px, 7vw, 42px);
+  margin: 15px 0 10px;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  color: #888;
+  font-size: 16px;
+}
+
+/* --- GRID MODERNO --- */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.service-card {
+  background: #15181b;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(242, 229, 196, 0.05);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  border-color: #C49A37;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.img-container {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .img-container img {
+  transform: scale(1.1);
+}
+
+.overlay-price {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: rgba(216, 60, 58, 0.9); /* Rojo Rocket */
+  color: white;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.info-content {
+  padding: 25px;
+}
+
+.info-content h2 {
+  color: #C49A37;
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.info-content p {
+  color: #F2E5C4;
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.8;
+  margin-bottom: 25px;
+}
+
+/* --- BOTÓN PREMIUM --- */
+.btn-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: #C49A37;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  border: 2px solid #C49A37;
+  padding: 12px 25px;
+  border-radius: 14px;
+  transition: all 0.3s ease;
+  width: 100%;
+  justify-content: center;
+}
+
+.btn-premium:hover {
+  background: #C49A37;
+  color: #0B0D0F;
+}
+
+.btn-premium span {
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.btn-premium:hover span {
+  transform: translateX(5px);
+}

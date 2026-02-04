@@ -1,0 +1,131 @@
+:host {
+  display: block;
+  padding-top: 180px;
+  background-color: #0B0D0F;
+  min-height: 100vh;
+  color: #F2E5C4;
+}
+
+.web-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+
+.hero-web {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.tech-badge {
+  color: #D83C3A;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 13px;
+  border: 1px solid #D83C3A;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+.glitch-title {
+  font-size: clamp(28px, 8vw, 48px);
+  margin-top: 20px;
+  letter-spacing: -1px;
+}
+
+.web-subtitle {
+  color: #888;
+  max-width: 500px;
+  margin: 10px auto;
+}
+
+/* --- GRID DE SOLUCIONES --- */
+.solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.web-card {
+  background: linear-gradient(145deg, #15181b, #0e1012);
+  border: 1px solid rgba(196, 154, 55, 0.1);
+  border-radius: 20px;
+  padding: 40px 30px;
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+/* Efecto de brillo al pasar el mouse */
+.web-card:hover {
+  border-color: #C49A37;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+.web-card.highlight {
+  border: 1px solid rgba(216, 60, 58, 0.3);
+}
+
+.web-card.highlight:hover {
+  border-color: #D83C3A;
+}
+
+.card-icon {
+  font-size: 40px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.web-content h2 {
+  color: #F2E5C4;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 35px;
+}
+
+.features li {
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.features li::before {
+  content: '⚡';
+  font-size: 12px;
+  color: #C49A37;
+}
+
+/* --- BOTÓN WEB --- */
+.btn-web {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: #0B0D0F;
+  background: #C49A37;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: bold;
+  transition: 0.3s;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.web-card.highlight .btn-web {
+  background: #D83C3A;
+  color: white;
+}
+
+.btn-web:hover {
+  filter: brightness(1.2);
+  letter-spacing: 1px;
+}

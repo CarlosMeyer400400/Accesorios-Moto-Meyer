@@ -20,6 +20,24 @@ html, body {
   max-width: 100%;
 }
 
+/* Este es el contenedor que envuelve todo en el inicio */
+:host {
+  display: block;
+  /* El valor debe ser la suma de la altura de tu logo + los botones del menú */
+  padding-top: 160px; 
+}
+
+.zona-title {
+  background-color: #0B0D0F;
+  text-align: center;
+  color: #C49A37; /* Dorado para que resalte */
+  font-size: clamp(14px, 4vw, 18px); 
+  margin: 10px auto 25px auto;
+  padding: 0 20px;
+  line-height: 1.4;
+  max-width: 90%;
+}
+
 /* ---------- BODY ---------- */
 body {
   font-family: Arial, sans-serif;

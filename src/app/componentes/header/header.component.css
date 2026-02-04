@@ -1,0 +1,65 @@
+.header {
+  background-color: #0B0D0F;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-bottom: 3px solid #C49A37;
+  display: flex;
+  flex-direction: column; /* Esto genera el salto de línea entre título y botones */
+  align-items: center;
+  padding: 10px 0 0 0; /* Sin padding abajo para que los botones peguen al borde */
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px; /* Espacio antes de los botones */
+}
+
+.header-top img {
+  height: 60px;
+  margin-right: 15px;
+}
+
+.header-top h1 {
+  color: #F2E5C4;
+  font-size: 24px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* --- Estilo de los 3 botones --- */
+.urban-nav {
+  display: flex;
+  width: 100%; /* Ocupa todo el ancho */
+  background-color: #2B2F33; /* Un gris oscuro para resaltar los botones */
+}
+
+.urban-nav a {
+  flex: 1; /* 💡 ESTO hace que los 3 botones midan exactamente lo mismo y rellenen el header */
+  text-align: center;
+  padding: 12px 0;
+  color: #F2E5C4;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  border-right: 1px solid #444; /* Separador sutil entre botones */
+  transition: background 0.3s;
+}
+
+.urban-nav a:last-child {
+  border-right: none;
+}
+
+.urban-nav a.active {
+  background-color: #D83C3A; /* Rojo Rocket para la sección activa */
+  color: white;
+}
+
+.urban-nav a:hover {
+  background-color: #C49A37; /* Dorado al pasar el mouse */
+  color: #0B0D0F;
+}
