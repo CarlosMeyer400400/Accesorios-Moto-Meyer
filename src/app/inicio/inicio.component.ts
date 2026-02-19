@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import * as Papa from 'papaparse'; // Importamos PapaParse
+import * as Papa from 'papaparse';
 
 interface Producto {
   Nombre: string;
@@ -12,19 +12,20 @@ interface Producto {
 }
 
 @Component({
-  selector: 'app-inicio', // Cambia el selector a algo más representativo
+  selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, RouterModule], // Agregar RouterModule aquí
-  templateUrl: './inicio.component.html',  // Cambia el nombre del archivo HTML
-  styleUrls: ['./inicio.component.css']  // Cambia el nombre del archivo CSS
+  imports: [CommonModule, RouterModule],
+  templateUrl: './inicio.component.html',
+  styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
-  title = 'Urban Rocket';
-  datos: Producto[] = []; // Explicitly typed as Producto[]
-  showModal = false; // Variable para mostrar/ocultar el modal
-  selectedProduct: Producto | null = null; // Producto seleccionado para el modal
 
-  constructor(private http: HttpClient, private router: Router) {} // Agregar Router aquí
+  title = 'Urban Rocket';
+  datos: Producto[] = [];
+  showModal = false;
+  selectedProduct: Producto | null = null;
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSKoHiWPT1VSTD68LhVfvqbNpvMRAXS7oEI2dpWZscAOibqya9PmnfxWXTkRfrRpLlgrNNyoVGpespQ/pub?gid=0&single=true&output=csv';
@@ -40,24 +41,25 @@ export class InicioComponent implements OnInit {
 
   convertirCSVaJSON(csv: string): Producto[] {
     const result = Papa.parse(csv, { header: true, skipEmptyLines: true });
-    return (result.data as Producto[]).map((item) => {
-      return {
-        Nombre: item['Nombre'],
-        Descripcion: item['Descripcion'],
-        Precio_publico: item['Precio_publico'],
-        Imagen: item['Imagen']
-      };
-    });
+
+    return (result.data as Producto[])
+      .map((item) => ({
+        Nombre: item['Nombre']?.trim() || '',
+        Descripcion: item['Descripcion']?.trim() || '',
+        Precio_publico: item['Precio_publico']?.trim() || '',
+        Imagen: item['Imagen']?.trim() || ''
+      }))
+      .reverse(); // 🔥 Aquí se invierte el orden (último primero)
   }
 
   openModal(item: Producto) {
-    this.selectedProduct = item; // Asigna el producto seleccionado
-    this.showModal = true; // Muestra el modal
+    this.selectedProduct = item;
+    this.showModal = true;
   }
 
   closeModal() {
-    this.showModal = false; // Cierra el modal
-    this.selectedProduct = null; // Limpia el producto seleccionado
+    this.showModal = false;
+    this.selectedProduct = null;
   }
 
   irALogin() {
