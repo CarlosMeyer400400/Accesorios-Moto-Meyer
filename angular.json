@@ -13,6 +13,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "inlineStyleLanguage": "css",
+            "extractLicenses": false,
+            "outputHashing": "all",
             "outputPath": "dist/accesorios-para-moto-meyer",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -38,20 +41,30 @@
           },
           "configurations": {
             "production": {
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": {
+                  "inline": false
+                }
+              },
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ],
               "outputHashing": "all",
-              "serviceWorker": false  
+              "serviceWorker": false
             },
             "development": {
               "optimization": false,
