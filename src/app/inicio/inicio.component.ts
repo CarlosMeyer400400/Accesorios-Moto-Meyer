@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import * as Papa from 'papaparse'; // Importamos PapaParse
+import * as Papa from 'papaparse';
 
 interface Producto {
   Nombre: string;
@@ -12,55 +13,94 @@ interface Producto {
 }
 
 @Component({
-  selector: 'app-inicio', // Cambia el selector a algo más representativo
+  selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, RouterModule], // Agregar RouterModule aquí
-  templateUrl: './inicio.component.html',  // Cambia el nombre del archivo HTML
-  styleUrls: ['./inicio.component.css']  // Cambia el nombre del archivo CSS
+  imports: [CommonModule, RouterModule, FormsModule],
+  templateUrl: './inicio.component.html',
+  styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
-  title = 'Urban Rocket';
-  datos: Producto[] = []; // Explicitly typed as Producto[]
-  showModal = false; // Variable para mostrar/ocultar el modal
-  selectedProduct: Producto | null = null; // Producto seleccionado para el modal
+  datos: Producto[] = [];
+  datosFiltrados: Producto[] = [];
+  showModal = false;
+  selectedProduct: Producto | null = null;
+  isLoading = true;
+  searchTerm = '';
 
-  constructor(private http: HttpClient, private router: Router) {} // Agregar Router aquí
+  private readonly WHATSAPP_NUMBER = '7713535455';
+  private readonly SHEET_URL =
+    'https://docs.google.com/spreadsheets/d/e/2PACX-1vSKoHiWPT1VSTD68LhVfvqbNpvMRAXS7oEI2dpWZscAOibqya9PmnfxWXTkRfrRpLlgrNNyoVGpespQ/pub?gid=0&single=true&output=csv';
 
-  ngOnInit() {
-    const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSKoHiWPT1VSTD68LhVfvqbNpvMRAXS7oEI2dpWZscAOibqya9PmnfxWXTkRfrRpLlgrNNyoVGpespQ/pub?gid=0&single=true&output=csv';
+  constructor(private http: HttpClient, private router: Router) {}
 
-    this.http.get(sheetUrl, { responseType: 'text' }).subscribe(csvData => {
-      this.datos = this.convertirCSVaJSON(csvData);
+  ngOnInit(): void {
+    this.http.get(this.SHEET_URL, { responseType: 'text' }).subscribe({
+      next: (csvData) => {
+        this.datos = this.convertirCSVaJSON(csvData);
+        this.datosFiltrados = [...this.datos];
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+      }
     });
-  }
-
-  encodeURIComponent(value: string): string {
-    return encodeURIComponent(value);
   }
 
   convertirCSVaJSON(csv: string): Producto[] {
     const result = Papa.parse(csv, { header: true, skipEmptyLines: true });
-    return (result.data as Producto[]).map((item) => {
-      return {
-        Nombre: item['Nombre'],
-        Descripcion: item['Descripcion'],
-        Precio_publico: item['Precio_publico'],
-        Imagen: item['Imagen']
-      };
-    });
+    return (result.data as any[]).map((item) => ({
+      Nombre: item['Nombre'] ?? '',
+      Descripcion: item['Descripcion'] ?? '',
+      Precio_publico: item['Precio_publico'] ?? '',
+      Imagen: item['Imagen'] ?? ''
+    }))
+        .reverse(); // ← ¡Esta línea sola invierte el orden!
   }
 
-  openModal(item: Producto) {
-    this.selectedProduct = item; // Asigna el producto seleccionado
-    this.showModal = true; // Muestra el modal
+  filtrarProductos(): void {
+    const term = this.searchTerm.trim().toLowerCase();
+    this.datosFiltrados = term
+      ? this.datos.filter(p =>
+          p.Nombre.toLowerCase().includes(term) ||
+          p.Descripcion.toLowerCase().includes(term)
+        )
+      : [...this.datos];
   }
 
-  closeModal() {
-    this.showModal = false; // Cierra el modal
-    this.selectedProduct = null; // Limpia el producto seleccionado
+  limpiarBusqueda(): void {
+    this.searchTerm = '';
+    this.datosFiltrados = [...this.datos];
   }
 
-  irALogin() {
+  getWhatsAppLink(item: Producto): string {
+    const msg = encodeURIComponent(
+      `Hola! 👋 Estoy interesado en:\n` +
+      `🛍️ *${item.Nombre}*\n` +
+      `💰 Precio: $${item.Precio_publico}\n` +
+      `¿Está disponible?`
+    );
+    return `https://wa.me/${this.WHATSAPP_NUMBER}?text=${msg}`;
+  }
+
+  openModal(item: Producto): void {
+    this.selectedProduct = item;
+    this.showModal = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+    this.selectedProduct = null;
+    document.body.style.overflow = '';
+  }
+
+  onBackdropClick(event: MouseEvent): void {
+    if ((event.target as HTMLElement).classList.contains('modal')) {
+      this.closeModal();
+    }
+  }
+
+  irALogin(): void {
     this.router.navigate(['/login']);
   }
 }

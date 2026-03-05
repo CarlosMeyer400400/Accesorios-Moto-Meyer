@@ -1,12 +1,45 @@
 <header class="header">
+
+  <!-- Línea animada decorativa superior -->
+  <div class="header-scanline"></div>
+
   <div class="header-top">
-    <img src="assets/Logo_Meyer.jpg" alt="Logo Meyer">
-    <h1>{{ title }}</h1>
+    <!-- Logo con glow -->
+    <div class="logo-wrapper">
+      <img src="assets/Logo_Meyer.jpg" alt="Logo Urban Rocket" />
+      <div class="logo-glow"></div>
+    </div>
+
+    <!-- Título con fuente tech -->
+    <div class="brand-text">
+      <span class="brand-sub">EST. 2024 · HUEJUTLA</span>
+      <h1 class="brand-title">{{ title }}</h1>
+    </div>
   </div>
 
+  <!-- NAV -->
   <nav class="urban-nav">
-    <a routerLink="/inicio" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">🏍️ Motos</a>
-    <a routerLink="/fotografia" routerLinkActive="active">📸 Fotografía</a>
-    <a routerLink="/disenoweb" routerLinkActive="active">💻 Web</a>
+    <a routerLink="/inicio"
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{exact: true}">
+      <span class="nav-icon">🏍️</span>
+      <span class="nav-label">Motos</span>
+      <span class="nav-underline"></span>
+    </a>
+
+    <a routerLink="/fotografia"
+       routerLinkActive="active">
+      <span class="nav-icon">📸</span>
+      <span class="nav-label">Fotografía</span>
+      <span class="nav-underline"></span>
+    </a>
+
+    <a routerLink="/disenoweb"
+       routerLinkActive="active">
+      <span class="nav-icon">💻</span>
+      <span class="nav-label">Web</span>
+      <span class="nav-underline"></span>
+    </a>
   </nav>
+
 </header>
