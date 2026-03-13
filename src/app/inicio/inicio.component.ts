@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core'; // 👈 HostListener agregado
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -26,6 +26,7 @@ export class InicioComponent implements OnInit {
   selectedProduct: Producto | null = null;
   isLoading = true;
   searchTerm = '';
+  currentIndex: number = 0; // 👈 NUEVO: índice del producto actual
 
   private readonly WHATSAPP_NUMBER = '7713535455';
   private readonly SHEET_URL =
@@ -53,8 +54,7 @@ export class InicioComponent implements OnInit {
       Descripcion: item['Descripcion'] ?? '',
       Precio_publico: item['Precio_publico'] ?? '',
       Imagen: item['Imagen'] ?? ''
-    }))
-        .reverse(); // ← ¡Esta línea sola invierte el orden!
+    })).reverse();
   }
 
   filtrarProductos(): void {
@@ -82,7 +82,9 @@ export class InicioComponent implements OnInit {
     return `https://wa.me/${this.WHATSAPP_NUMBER}?text=${msg}`;
   }
 
+  // 👇 ACTUALIZADO: ahora también guarda el índice
   openModal(item: Producto): void {
+    this.currentIndex = this.datosFiltrados.indexOf(item);
     this.selectedProduct = item;
     this.showModal = true;
     document.body.style.overflow = 'hidden';
@@ -94,6 +96,22 @@ export class InicioComponent implements OnInit {
     document.body.style.overflow = '';
   }
 
+  // 👇 NUEVO: ir al producto anterior
+  prevProduct(): void {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+      this.selectedProduct = this.datosFiltrados[this.currentIndex];
+    }
+  }
+
+  // 👇 NUEVO: ir al producto siguiente
+  nextProduct(): void {
+    if (this.currentIndex < this.datosFiltrados.length - 1) {
+      this.currentIndex++;
+      this.selectedProduct = this.datosFiltrados[this.currentIndex];
+    }
+  }
+
   onBackdropClick(event: MouseEvent): void {
     if ((event.target as HTMLElement).classList.contains('modal')) {
       this.closeModal();
@@ -102,5 +120,14 @@ export class InicioComponent implements OnInit {
 
   irALogin(): void {
     this.router.navigate(['/login']);
+  }
+
+  // 👇 Teclado: ←  → para navegar, Escape para cerrar
+  @HostListener('document:keydown', ['$event'])
+  onKeydown(e: KeyboardEvent): void {
+    if (!this.showModal) return;
+    if (e.key === 'ArrowLeft')  this.prevProduct();
+    if (e.key === 'ArrowRight') this.nextProduct();
+    if (e.key === 'Escape')     this.closeModal();
   }
 }

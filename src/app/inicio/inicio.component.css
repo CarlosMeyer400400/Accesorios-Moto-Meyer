@@ -499,3 +499,85 @@ html, body {
 @media (max-width: 380px) {
   .product-container { grid-template-columns: 1fr; }
 }
+
+/* ===== FLECHAS DE NAVEGACIÓN DEL MODAL ===== */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(196, 154, 55, 0.15);
+  border: 2px solid #C49A37;
+  color: #C49A37;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  line-height: 1;
+}
+
+.nav-arrow:hover:not(:disabled) {
+  background: #C49A37;
+  color: #0B0D0F;
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 0 16px rgba(196, 154, 55, 0.5);
+}
+
+.nav-arrow:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  border-color: #555;
+  color: #555;
+}
+
+.nav-prev {
+  left: -56px;
+}
+
+.nav-next {
+  right: -56px;
+}
+
+/* Contador de posición */
+.modal-counter {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(196, 154, 55, 0.15);
+  border: 1px solid rgba(196, 154, 55, 0.35);
+  color: #C49A37;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 50px;
+  letter-spacing: 0.5px;
+  z-index: 10;
+}
+
+/* En pantallas pequeñas, las flechas van dentro del modal abajo */
+@media (max-width: 640px) {
+  .nav-prev {
+    left: 8px;
+    top: 140px;       /* ← centrado sobre la imagen */
+    bottom: auto;
+    transform: translateY(-50%);
+  }
+
+  .nav-next {
+    right: 8px;
+    top: 140px;       /* ← centrado sobre la imagen */
+    bottom: auto;
+    transform: translateY(-50%);
+  }
+
+  .nav-arrow:hover:not(:disabled) {
+    transform: translateY(-50%) scale(1.12);
+  }
+}

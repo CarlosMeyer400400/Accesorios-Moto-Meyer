@@ -87,11 +87,37 @@
 </div>
 
 <!-- ====== MODAL ====== -->
+<!-- ====== MODAL ====== -->
 <div class="modal" *ngIf="showModal" (click)="onBackdropClick($event)">
   <div class="modal-content" #modalContent>
 
     <!-- Cerrar -->
     <button class="close" (click)="closeModal()" aria-label="Cerrar">✕</button>
+
+    <!-- ← Flecha Anterior -->
+    <button
+      class="nav-arrow nav-prev"
+      (click)="prevProduct()"
+      [disabled]="currentIndex === 0"
+      aria-label="Producto anterior"
+    >
+      &#8592;
+    </button>
+
+    <!-- → Flecha Siguiente -->
+    <button
+      class="nav-arrow nav-next"
+      (click)="nextProduct()"
+      [disabled]="currentIndex === datosFiltrados.length - 1"
+      aria-label="Producto siguiente"
+    >
+      &#8594;
+    </button>
+
+    <!-- Contador de posición -->
+    <div class="modal-counter">
+      {{ currentIndex + 1 }} / {{ datosFiltrados.length }}
+    </div>
 
     <!-- Imagen -->
     <div class="modal-img-wrapper">
