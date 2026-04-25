@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core'; // 👈 HostListener agregado
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,14 +6,10 @@ import { Router, RouterModule } from '@angular/router';
 import * as Papa from 'papaparse';
 
 interface Producto {
-  ID: string;
   Nombre: string;
   Descripcion: string;
   Precio_publico: string;
   Imagen: string;
-  Stock: number;
-  Estado: string;
-  Orden: number;
 }
 
 @Component({
@@ -30,7 +26,7 @@ export class InicioComponent implements OnInit {
   selectedProduct: Producto | null = null;
   isLoading = true;
   searchTerm = '';
-  currentIndex: number = 0;
+  currentIndex: number = 0; // 👈 NUEVO: índice del producto actual
 
   private readonly WHATSAPP_NUMBER = '7713535455';
   private readonly SHEET_URL =
@@ -53,29 +49,20 @@ export class InicioComponent implements OnInit {
 
   convertirCSVaJSON(csv: string): Producto[] {
     const result = Papa.parse(csv, { header: true, skipEmptyLines: true });
-
-    return (result.data as any[])
-      .map((item) => ({
-        ID: item['id'] ?? item['ID'] ?? '',
-        Nombre: item['nombre'] ?? item['Nombre'] ?? '',
-        Descripcion: item['descripcion'] ?? item['Descripcion'] ?? '',
-        Precio_publico: item['precio_publico'] ?? item['Precio_publico'] ?? '',
-        Imagen: item['imagen'] ?? item['Imagen'] ?? '',
-        Stock: Number(item['stock'] ?? item['Stock'] ?? 0),
-        Estado: String(item['estado'] ?? item['Estado'] ?? '').trim().toLowerCase(),
-        Orden: Number(item['orden'] ?? item['Orden'] ?? 999999)
-      }))
-      .filter((p) => p.Stock > 0 && p.Estado === 'habilitado')
-      .sort((a, b) => a.Orden - b.Orden);
+    return (result.data as any[]).map((item) => ({
+      Nombre: item['Nombre'] ?? '',
+      Descripcion: item['Descripcion'] ?? '',
+      Precio_publico: item['Precio_publico'] ?? '',
+      Imagen: item['Imagen'] ?? ''
+    })).reverse();
   }
 
   filtrarProductos(): void {
     const term = this.searchTerm.trim().toLowerCase();
-
     this.datosFiltrados = term
       ? this.datos.filter(p =>
-          (p.Nombre ?? '').toLowerCase().includes(term) ||
-          (p.Descripcion ?? '').toLowerCase().includes(term)
+          p.Nombre.toLowerCase().includes(term) ||
+          p.Descripcion.toLowerCase().includes(term)
         )
       : [...this.datos];
   }
@@ -90,12 +77,12 @@ export class InicioComponent implements OnInit {
       `Hola! 👋 Estoy interesado en:\n` +
       `🛍️ *${item.Nombre}*\n` +
       `💰 Precio: $${item.Precio_publico}\n` +
-      `📦 Stock disponible: ${item.Stock}\n` +
       `¿Está disponible?`
     );
     return `https://wa.me/${this.WHATSAPP_NUMBER}?text=${msg}`;
   }
 
+  // 👇 ACTUALIZADO: ahora también guarda el índice
   openModal(item: Producto): void {
     this.currentIndex = this.datosFiltrados.indexOf(item);
     this.selectedProduct = item;
@@ -109,6 +96,7 @@ export class InicioComponent implements OnInit {
     document.body.style.overflow = '';
   }
 
+  // 👇 NUEVO: ir al producto anterior
   prevProduct(): void {
     if (this.currentIndex > 0) {
       this.currentIndex--;
@@ -116,6 +104,7 @@ export class InicioComponent implements OnInit {
     }
   }
 
+  // 👇 NUEVO: ir al producto siguiente
   nextProduct(): void {
     if (this.currentIndex < this.datosFiltrados.length - 1) {
       this.currentIndex++;
@@ -133,11 +122,12 @@ export class InicioComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  // 👇 Teclado: ←  → para navegar, Escape para cerrar
   @HostListener('document:keydown', ['$event'])
   onKeydown(e: KeyboardEvent): void {
     if (!this.showModal) return;
-    if (e.key === 'ArrowLeft') this.prevProduct();
+    if (e.key === 'ArrowLeft')  this.prevProduct();
     if (e.key === 'ArrowRight') this.nextProduct();
-    if (e.key === 'Escape') this.closeModal();
+    if (e.key === 'Escape')     this.closeModal();
   }
 }

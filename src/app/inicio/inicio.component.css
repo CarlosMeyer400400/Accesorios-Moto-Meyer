@@ -580,41 +580,4 @@ html, body {
   .nav-arrow:hover:not(:disabled) {
     transform: translateY(-50%) scale(1.12);
   }
-
-
-  .card-stock {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(216, 60, 58, 0.08);
-  border: 1px solid rgba(216, 60, 58, 0.25);
-  border-radius: 8px;
-  padding: 6px 10px;
-  margin-top: 8px;
-}
-
-.stock-label {
-  font-size: 11px;
-  color: #aaa;
-}
-
-.stock-value {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: #D83C3A;
-}
-
-.modal-stock {
-  margin-top: 12px;
-  background: rgba(216, 60, 58, 0.08);
-  border: 1px solid rgba(216, 60, 58, 0.25);
-  border-radius: 10px;
-  padding: 10px 14px;
-  color: #F2E5C4;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 }
