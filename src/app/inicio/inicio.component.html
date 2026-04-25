@@ -63,13 +63,20 @@
     </div>
 
     <!-- Info -->
-    <div class="card-body">
-      <h2 class="card-title">{{ item.Nombre }}</h2>
-      <div class="card-price">
-        <span class="price-label">Precio</span>
-        <span class="price-value">${{ item.Precio_publico }}</span>
-      </div>
-    </div>
+<div class="card-body">
+  <h2 class="card-title">{{ item.Nombre }}</h2>
+
+  <div class="card-price">
+    <span class="price-label">Precio</span>
+    <span class="price-value">${{ item.Precio_publico }}</span>
+  </div>
+
+  <div class="card-stock">
+    <span class="stock-label">Disponibles</span>
+    <span class="stock-value">{{ item.Stock }}</span>
+  </div>
+</div>
+
 
     <!-- Botón WhatsApp -->
     <a
@@ -128,10 +135,20 @@
     <div class="modal-info">
       <h2 class="modal-title">{{ selectedProduct?.Nombre }}</h2>
       <p class="modal-desc">{{ selectedProduct?.Descripcion }}</p>
-      <div class="modal-price">
-        <span class="modal-price-label">💰 Precio</span>
-        <span class="modal-price-value">${{ selectedProduct?.Precio_publico }}</span>
-      </div>
+      
+      
+   <div class="modal-price">
+  <span class="modal-price-label">💰 Precio</span>
+  <span class="modal-price-value">${{ selectedProduct?.Precio_publico }}</span>
+</div>
+
+<div class="modal-stock" *ngIf="selectedProduct">
+  <span>📦 Stock disponible:</span>
+  <strong>{{ selectedProduct.Stock }}</strong>
+</div>
+
+
+
     </div>
 
     <!-- Botón WhatsApp en modal -->
